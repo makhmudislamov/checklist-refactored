@@ -1,3 +1,4 @@
+# coding: utf8
 # creating empty array named checklist
 checklist = []
 
@@ -74,7 +75,7 @@ def select(function_code):
             list_all_items()
 
     # MARK AS COMPLETED
-    elif function_code == "C":
+    elif function_code == "M":
         marked_item = int(user_input(
             "Insert Index of an Item to be marked as completed: "))
         mark_completed(marked_item)
@@ -133,10 +134,9 @@ def select(function_code):
 
 # test()
 
-
 running = True
 while running:
-    selection = user_input('\033[0m'
+    selection = user_input("\033[0m" +
                            "Press C to add to list, R to Read from list, P to print the full list, M to mark as completed, D to delete an item and Q to quit >>> ")
     running = select(selection)
 
