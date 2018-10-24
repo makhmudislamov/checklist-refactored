@@ -30,7 +30,9 @@ def list_all_items():
 # function that marks items in the list as completed
 def mark_completed(index):
     # marked items are printed in green
-    print("\033[32m" + "{} {}".format("√", read(index)))
+    item = read(index)
+    update(index, "√ " + item)
+    print("\033[32m" + "{} {}".format("√", item))
 
 # unmarks the marked item from the list
 def uncheck_item(index):
@@ -48,7 +50,9 @@ def user_input(prompt):
 def select(function_code):
     
     # CREATE ITEM
-    # python trick using in and array. another option >> function_code == "C" or function_code == "c"
+    # python trick using in and array. 
+    # another option >> function_code == "C" or function_code == "c"
+    # another option >> function_code.lower() makes all inputs lowercase.
     if function_code in ["C", "c"]:
         input_item = user_input("Input item to the list: ")
         print('\033[32m' + input_item + " - added to the list")
@@ -86,7 +90,6 @@ def select(function_code):
         marked_item = int(user_input(
             "Insert Index of an Item to be marked as completed: "))
         mark_completed(marked_item)
-        update(marked_item, input_item)
     
     # UPDATING THE LIST
     elif function_code in ["U", "u"]:
@@ -161,5 +164,5 @@ while running:
 # ISSUES
 # 1. only C option is running - solved
 # 2. catch out of range errors
-# 3. save marked item in the list
-# 4. how to unmark item and save in the list
+# 3. save marked item in the list - solved
+# 4. how to unmark item and save in the list - challenge
