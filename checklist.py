@@ -48,24 +48,28 @@ def user_input(prompt):
 def select(function_code):
 
     # CREATE ITEM
-    if function_code == "C".lower():
+    if function_code == "C" or "c":
         input_item = user_input("Input item to the list: ")
         create(input_item)
         print('\033[32m' + input_item + " is added to the list")
 
     # READ ITEM
-    elif function_code == "R".lower():
+    elif function_code == "R" or "r":
         item_index = int(user_input("Insert Index Number of an Item to be printed: "))
         # Remember that item_index must actually exist or our program will crash.
         if checklist == list():
             # error printed in red
             print('\033[31m' + "The list is empty")
             running = True
+        elif item_index > len(checklist):
+            # error printed in red
+            print('\033[31m' + "Invalid Input")
+            running = True
         else:
             print(read(item_index))
 
     # PRINTINT THE LIST
-    elif function_code == "P".lower():
+    elif function_code == "P" or "p":
         if checklist == list():
             # error printed in red
             print("\033[31m" + "The list is empty")
@@ -75,20 +79,20 @@ def select(function_code):
             list_all_items()
 
     # MARK AS COMPLETED
-    elif function_code == "M".lower():
+    elif function_code == "M" or "m":
         marked_item = int(user_input(
             "Insert Index of an Item to be marked as completed: "))
         mark_completed(marked_item)
     
     # UPDATING THE LIST
-    elif function_code == "U".lower():
+    elif function_code == "U" or "u":
          item_index = int(user_input("Insert Index Number of an Item to update: "))
          item_name = user_input("Insert the item name: ")
          print("\033[32m" + item_name + " is added as an update")
          update(item_index, item_name)
       
     # DELETE ITEM 
-    elif function_code == "D".lower():
+    elif function_code == "D" or "d":
         del_item = int(user_input("Insert Index of an Item to delete: "))
 
         if checklist == list():
@@ -100,7 +104,7 @@ def select(function_code):
             print("\033[32m" + read(int(del_item)) + " - deleted now")
             destroy(del_item)
 
-    elif function_code == "Q".lower():
+    elif function_code == "Q" or "q":
         # This is where we want to stop our loop
         print('\033[32m' + "Bye Bye!")
         return False
