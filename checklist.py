@@ -29,6 +29,11 @@ def list_all_items():
 def mark_completed(index):
     print("{} {}".format("√", read(index)))
 
+# unmarks the marked item from the list
+def uncheck_item(index):
+    mark_completed(index)
+    print("{} {}".format("√", mark_completed(index)))
+
 # function that takes input from users
 def user_input(prompt):
     # the input function will display a message in the terminal
@@ -53,33 +58,45 @@ def select(function_code):
     elif function_code == "P":
         list_all_items()
 
+    elif function_code == "Q":
+        # This is where we want to stop our loop
+        running = False
+        return running
+
     # Catch all
     else:
         print("Unknown Option")
+    return True
 
 # testing all CRUD functions
-def test():
-    create("purple sox")
-    create("red cloak")
+# def test():
+#     create("purple sox")
+#     create("red cloak")
 
-    print(read(0))
-    print(read(1))
+#     print(read(0))
+#     print(read(1))
 
-    update(0, "purple socks")
-    destroy(1)
+#     update(0, "purple socks")
+#     destroy(1)
 
-    print(read(0))
-    list_all_items()
-    mark_completed(0)
+#     print(read(0))
+#     list_all_items()
+#     mark_completed(0)
 
-    user_value = user_input("Please Enter a value:")
-    print(user_value)
+#     user_value = user_input("Please Enter a value:")
+#     print(user_value)
 
-    select("C")
-    list_all_items()
+#     select("C")
+#     list_all_items()
 
-    select("R")
-    list_all_items()
+#     select("R")
+#     list_all_items()
 
-test()
+# test()
+
+running = True
+while running:
+    selection = user_input(
+        "Press C to add to list, R to Read from list and P to display list")
+    select(selection)
 
