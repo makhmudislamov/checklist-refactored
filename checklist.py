@@ -46,65 +46,69 @@ def user_input(prompt):
 
 # SELECT FUNCTION that allows user to CRUD the checklist
 def select(function_code):
-
+    
     # CREATE ITEM
-    if function_code == "C" or "c":
+    # python trick using in and array. another option >> function_code == "C" or function_code == "c"
+    if function_code in ["C", "c"]:
         input_item = user_input("Input item to the list: ")
+        print('\033[32m' + input_item + " - added to the list")
         create(input_item)
-        print('\033[32m' + input_item + " is added to the list")
+        
 
     # READ ITEM
-    elif function_code == "R" or "r":
+    elif function_code in ["R", "r"]:
         item_index = int(user_input("Insert Index Number of an Item to be printed: "))
         # Remember that item_index must actually exist or our program will crash.
-        if checklist == list():
+        if checklist == []:
             # error printed in red
             print('\033[31m' + "The list is empty")
-            running = True
+            # running = True
         # elif item_index > len(checklist):
-        #     # error printed in red
-        #     print('\033[31m' + "Invalid Input")
+            # error printed in red
+            # print('\033[31m' + "Invalid Input. Enter number equal or less than " + len(checklist))
         #     running = True
         else:
             print(read(item_index))
 
     # PRINTINT THE LIST
-    elif function_code == "P" or "p":
-        if checklist == list():
+    elif function_code in ["P", "p"]:
+        if checklist == []:
             # error printed in red
             print("\033[31m" + "The list is empty")
-            running = True
+            # running = True
         else:
+            print(len(checklist))
             print("\033[33m" + "The following items are in the list:")
             list_all_items()
 
     # MARK AS COMPLETED
-    elif function_code == "M" or "m":
+    elif function_code in ["M", "m"]:
         marked_item = int(user_input(
             "Insert Index of an Item to be marked as completed: "))
         mark_completed(marked_item)
+        update(marked_item, input_item)
     
     # UPDATING THE LIST
-    elif function_code == "U" or "u":
+    elif function_code in ["U", "u"]:
          item_index = int(user_input("Insert Index Number of an Item to update: "))
          item_name = user_input("Insert the item name: ")
          print("\033[32m" + item_name + " is added as an update")
          update(item_index, item_name)
       
     # DELETE ITEM 
-    elif function_code == "D" or "d":
+    elif function_code in ["D", "d"]:
         del_item = int(user_input("Insert Index of an Item to delete: "))
 
-        if checklist == list():
+        if checklist == []:
             # error printed in red
             print("\033[31m" + "The list is empty")
-            running = True
+            # running = True
         else:
             # message printed in green
             print("\033[32m" + read(int(del_item)) + " - deleted now")
             destroy(del_item)
 
-    elif function_code == "Q" or "q":
+    elif function_code in ["Q", "q"]:
         # This is where we want to stop our loop
         print('\033[32m' + "Bye Bye!")
         return False
@@ -144,12 +148,18 @@ def select(function_code):
 running = True
 while running:
     selection = user_input("\033[0m" +
-    """Press C to add to list, 
+    """Press:
+        C to add to list, 
         R to Read from list, 
         P to print the full list, 
         U to update the list, 
         M to mark as completed, 
         D to delete an item,
-        and Q to quit: """)
+        and Q to quit >> """)
     running = select(selection)
 
+# ISSUES
+# 1. only C option is running - solved
+# 2. catch out of range errors
+# 3. save marked item in the list
+# 4. how to unmark item and save in the list
