@@ -22,12 +22,14 @@ def destroy(index):
 def list_all_items():
     index = 0
     for list_item in checklist:
-        print("{} {}".format(index, list_item))
+        # printing all items in yellow
+        print("\033[33m" + "{} {}".format(index, list_item))
         index += 1
 
 # function that marks items in the list as completed
 def mark_completed(index):
-    print("{} {}".format("√", read(index)))
+    # marked items are printed in green
+    print("\033[32m" + "{} {}".format("√", read(index)))
 
 # unmarks the marked item from the list
 def uncheck_item(index):
@@ -43,29 +45,66 @@ def user_input(prompt):
 
 # Select function that allows user to CRUD the checklist
 def select(function_code):
-    # Create item
+
+    # CREATE ITEM
     if function_code == "C":
-        input_item = user_input("Input item:")
+        input_item = user_input("Input item to the list: ")
         create(input_item)
+        print(input_item + " is added to the list")
 
-    # Read item
+    # READ ITEM
     elif function_code == "R":
-        item_index = int(user_input("Index Number?"))
+        item_index = int(user_input("Insert Index Number of an Item to be printed: "))
         # Remember that item_index must actually exist or our program will crash.
-        read(item_index)
+        if checklist == list():
+            # error printed in red
+            print('\033[31m' + "The list is empty")
+            running = True
+        else:
+            print(read(item_index))
 
-    # Print all items
+    # PRINTINT THE LIST
     elif function_code == "P":
-        list_all_items()
+        if checklist == list():
+            # error printed in red
+            print('\033[31m' + "The list is empty")
+            running = True
+        else:
+            print("The following items are in the list:")
+            list_all_items()
+
+    # MARK AS COMPLETED
+    elif function_code == "C":
+        marked_item = int(user_input(
+            "Insert Index of an Item to be marked as completed: "))
+        mark_completed(marked_item)
+    
+    # UPDATING THE LIST
+    # elif function_code == "U":
+    #      item_index = int(user_input("Insert Index Number of an Item to be printed: "))
+
+    # DELETE ITEM 
+    elif function_code == "D":
+        del_item = int(user_input("Insert Index of an Item to delete: "))
+
+        if checklist == list():
+            # error printed in red
+            print('\033[31m' + "The list is empty")
+            running = True
+        else:
+            # message printed in green
+            print('\033[32m' + read(int(del_item)) + " - deleted now")
+            destroy(del_item)
+
 
     elif function_code == "Q":
         # This is where we want to stop our loop
-        running = False
         return running
 
     # Catch all
     else:
-        print("Unknown Option")
+        # error message is printed in magenta
+        print('\033[35m' + "Unknown Option")
     return True
 
 # testing all CRUD functions
@@ -94,9 +133,10 @@ def select(function_code):
 
 # test()
 
+
 running = True
 while running:
-    selection = user_input(
-        "Press C to add to list, R to Read from list and P to display list")
-    select(selection)
+    selection = user_input('\033[0m'
+                           "Press C to add to list, R to Read from list, P to print the full list, M to mark as completed, D to delete an item and Q to quit >>> ")
+    running = select(selection)
 
