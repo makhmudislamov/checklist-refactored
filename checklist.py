@@ -29,6 +29,13 @@ def list_all_items():
 def mark_completed(index):
     print("{} {}".format("√", read(index)))
 
+# function that takes input from users
+def user_input(prompt):
+    # the input function will display a message in the terminal
+    # and wait for user input.
+    user_input = input(prompt)
+    return user_input
+
 # Select function that allows user to CRUD the checklist
 def select(function_code):
     # Create item
@@ -38,8 +45,7 @@ def select(function_code):
 
     # Read item
     elif function_code == "R":
-        item_index = user_input("Index Number?")
-
+        item_index = int(user_input("Index Number?"))
         # Remember that item_index must actually exist or our program will crash.
         read(item_index)
 
@@ -65,6 +71,15 @@ def test():
     print(read(0))
     list_all_items()
     mark_completed(0)
+
+    user_value = user_input("Please Enter a value:")
+    print(user_value)
+
+    select("C")
+    list_all_items()
+
+    select("R")
+    list_all_items()
 
 test()
 
