@@ -1,6 +1,6 @@
 # Checklist Python App 
 
-**Checklist Python App** is a an application written in Python that allows user to CRUD items of their persnal belongings
+**Checklist Python App** is a an application written in Python that allows users to CRUD items of their persnal belongings
 
 ## User Stories
 * [X] Users can view all charities (index)
