@@ -61,10 +61,10 @@ def select(function_code):
             # error printed in red
             print('\033[31m' + "The list is empty")
             running = True
-        elif item_index > len(checklist):
-            # error printed in red
-            print('\033[31m' + "Invalid Input")
-            running = True
+        # elif item_index > len(checklist):
+        #     # error printed in red
+        #     print('\033[31m' + "Invalid Input")
+        #     running = True
         else:
             print(read(item_index))
 
