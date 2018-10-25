@@ -74,7 +74,7 @@ def select(function_code):
         elif item_index in range(0, len(checklist)):
             print(read(item_index))
         else:
-            print('\033[31m' + "Your input does not")
+            print('\033[31m' + "Your input is out of range")
 
     # PRINTING THE LIST
     elif function_code in ["P", "p"]:
@@ -90,7 +90,13 @@ def select(function_code):
     elif function_code in ["M", "m"]:
         marked_item = int(user_input(
             "Insert Index of an Item to be marked as completed: "))
-        mark_completed(marked_item)
+        if checklist == []:
+            # error printed in red
+            print('\033[31m' + "The list is empty")
+        elif marked_item in range(0, len(checklist)):
+            mark_completed(marked_item)
+        else:
+            print('\033[31m' + "Your input is out of range")
 
     # elif function_code in ["N", "n"]:
     #     unmark_item = int(user_input("Insert Index of an Item to uncheck :"))
@@ -112,10 +118,12 @@ def select(function_code):
             # error printed in red
             print("\033[31m" + "The list is empty")
             # running = True
-        else:
-            # message printed in green
+        elif del_item in range(0, len(checklist)):
+             # message printed in green
             print("\033[32m" + read(int(del_item)) + " - deleted now")
             destroy(del_item)
+        else:
+            print('\033[31m' + "Your input is out of range")
 
     elif function_code in ["Q", "q"]:
         # This is where we want to stop our loop
