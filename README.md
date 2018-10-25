@@ -7,9 +7,9 @@
 * [X] Users can read item from the list
 * [X] Users can update an item from the list
 * [X] Users can delete an item from the list
-* [X] Users can mark as completed
 * [X] Users can print all items in the list
 
 ## Stretch challenges
 * [X] Colored Output
-* [X] Unmark item 
+* [X] Users can mark as completed
+* [X] Users can unmark item in the list
