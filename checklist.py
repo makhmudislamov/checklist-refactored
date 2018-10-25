@@ -36,8 +36,12 @@ def mark_completed(index):
 
 # unmarks the marked item from the list
 def uncheck_item(index):
-    mark_completed(index)
-    print("{} {}".format("√", mark_completed(index)))
+    unmark = read(index)
+    update(index, unmark)
+    # print("\033[32m" + "{}" "{}".format(unmark, " - unmarked"))
+    if "√" in checklist[index]:
+        checklist[index].pop("√")
+
 
 # function that takes input from users
 def user_input(prompt):
@@ -67,21 +71,18 @@ def select(function_code):
             # error printed in red
             print('\033[31m' + "The list is empty")
             # running = True
-        # elif item_index > len(checklist):
-            # error printed in red
-            # print('\033[31m' + "Invalid Input. Enter number equal or less than " + len(checklist))
-        #     running = True
-        else:
+        elif item_index in range(0, len(checklist)):
             print(read(item_index))
+        else:
+            print('\033[31m' + "Your input does not")
 
-    # PRINTINT THE LIST
+    # PRINTING THE LIST
     elif function_code in ["P", "p"]:
         if checklist == []:
             # error printed in red
             print("\033[31m" + "The list is empty")
             # running = True
         else:
-            print(len(checklist))
             print("\033[33m" + "The following items are in the list:")
             list_all_items()
 
@@ -90,6 +91,11 @@ def select(function_code):
         marked_item = int(user_input(
             "Insert Index of an Item to be marked as completed: "))
         mark_completed(marked_item)
+
+    # elif function_code in ["N", "n"]:
+    #     unmark_item = int(user_input("Insert Index of an Item to uncheck :"))
+    #     uncheck_item(unmark_item)
+        
     
     # UPDATING THE LIST
     elif function_code in ["U", "u"]:
@@ -163,6 +169,6 @@ while running:
 
 # ISSUES
 # 1. only C option is running - solved
-# 2. catch out of range errors
+# 2. catch out of range errors - solved
 # 3. save marked item in the list - solved
 # 4. how to unmark item and save in the list - challenge
